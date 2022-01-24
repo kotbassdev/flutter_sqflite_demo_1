@@ -45,6 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final res = await dbHelper.read(id);
   }
 
+  Future<void> deleteAll() async {
+    await dbHelper.deleteAll();
+  }
+
+  Future<void> deleteById() async {
+    await dbHelper.delete(1);
+  }
+
   Future<void> update() async {
     WorkerModel model = WorkerModel(
       id: 1,
@@ -96,9 +104,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                print('Delete');
+                print('Delete All');
+                deleteAll();
               },
-              child: Text("Delete"),
+              child: Text("Delete All"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('Delete ID');
+                deleteById();
+              },
+              child: Text("Delete ID"),
             ),
           ],
         ),

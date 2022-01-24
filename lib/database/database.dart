@@ -101,4 +101,27 @@ class DatabaseHelper {
       return false;
     }
   }
+
+  Future<bool> deleteAll() async {
+    Database db = await instance.database;
+    try {
+      await db.delete(tableWorker);
+      return true;
+    } catch (ex) {
+      print(ex.toString());
+      return false;
+    }
+  }
+
+  Future<bool> delete(int id) async {
+    Database db = await instance.database;
+    try {
+      await db
+          .delete(tableWorker, where: '${WorkerField.id} = ?', whereArgs: [id]);
+      return true;
+    } catch (ex) {
+      print(ex.toString());
+      return false;
+    }
+  }
 }
