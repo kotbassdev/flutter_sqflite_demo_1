@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:core';
 
 final String tableWorker = "worker";
 
@@ -28,9 +28,9 @@ class WorkerModel {
   final int? id;
   final String workerCode;
   final String workerName;
-  final bool? workerStatus;
-  final DateTime? createDate;
-  final String? createBy;
+  final bool workerStatus;
+  final DateTime createDate;
+  final String createBy;
   final DateTime? updateDate;
   final String? updateBy;
 
@@ -38,9 +38,9 @@ class WorkerModel {
     this.id,
     required this.workerCode,
     required this.workerName,
-    this.workerStatus,
-    this.createDate,
-    this.createBy,
+    required this.workerStatus,
+    required this.createDate,
+    required this.createBy,
     this.updateDate,
     this.updateBy,
   });
@@ -66,25 +66,15 @@ class WorkerModel {
         updateBy: updateBy ?? this.updateBy,
       );
 
-  factory WorkerModel.fromJson(Map<String, dynamic> json) => WorkerModel(
-        id: json[WorkerField.id] != null ? json[WorkerField.id] : null,
-        workerCode: json[WorkerField.workerCode],
-        workerName: json[WorkerField.workerName],
-        workerStatus: json[WorkerField.workerStatus] != null
-            ? json[WorkerField.workerStatus]
-            : false,
-        createDate: json[WorkerField.createDate] != null
-            ? json[WorkerField.createDate]
-            : DateTime.now(),
-        createBy: json[WorkerField.createBy] != null
-            ? json[WorkerField.createBy]
-            : 'admin',
-        updateDate: json[WorkerField.updateDate] != null
-            ? json[WorkerField.updateDate]
-            : DateTime.now(),
-        updateBy: json[WorkerField.updateBy] != null
-            ? json[WorkerField.updateBy]
-            : 'admin',
+  WorkerModel fromJson(Map<String, dynamic> json) => WorkerModel(
+        id: json[WorkerField.id] as int?,
+        workerCode: json[WorkerField.workerCode] as String,
+        workerName: json[WorkerField.workerName] as String,
+        workerStatus: json[WorkerField.workerStatus] as bool,
+        createDate: DateTime.parse(json[WorkerField.createDate] as String),
+        createBy: json[WorkerField.createBy] as String,
+        updateDate: DateTime.parse(json[WorkerField.updateDate] as String),
+        updateBy: json[WorkerField.updateBy] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,9 +82,10 @@ class WorkerModel {
         WorkerField.workerCode: workerCode,
         WorkerField.workerName: workerName,
         WorkerField.workerStatus: workerStatus,
-        WorkerField.createDate: createDate,
+        WorkerField.createDate: createDate.toIso8601String(),
         WorkerField.createBy: createBy,
-        WorkerField.updateDate: updateDate,
-        WorkerField.updateBy: updateBy,
+        WorkerField.updateDate:
+            updateDate != null ? updateDate!.toIso8601String() : null,
+        WorkerField.updateBy: updateBy != null ? updateBy : null,
       };
 }

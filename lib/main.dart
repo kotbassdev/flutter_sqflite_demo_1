@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sqflite_demo_1/database/database.dart';
+import 'package:flutter_sqflite_demo_1/models/worker_model.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +24,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final dbHelper = DatabaseHelper.instance;
+
+  Future<void> createWorker() async {
+    WorkerModel model = WorkerModel(
+      workerCode: "WC-0001",
+      workerName: "Anthony",
+      workerStatus: true,
+      createDate: DateTime.now(),
+      createBy: 'admin',
+    );
+    await dbHelper.create(model);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () {
                 print('Create');
+                createWorker();
               },
               child: Text("Create"),
             ),
