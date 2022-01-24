@@ -45,6 +45,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final res = await dbHelper.read(id);
   }
 
+  Future<void> update() async {
+    WorkerModel model = WorkerModel(
+      id: 1,
+      workerCode: 'WCode-000001',
+      workerName: 'Kotbass',
+      workerStatus: false,
+      createDate: DateTime.now(),
+      createBy: 'Admin',
+      updateDate: DateTime.now(),
+      updateBy: 'Admin',
+    );
+    await dbHelper.update(model);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () {
                 print('Update');
+                update();
               },
               child: Text("Update"),
             ),

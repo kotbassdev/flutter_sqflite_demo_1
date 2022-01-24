@@ -84,4 +84,21 @@ class DatabaseHelper {
       return false;
     }
   }
+
+  Future<bool> update(WorkerModel model) async {
+    Database db = await instance.database;
+    try {
+      await db.update(
+        tableWorker,
+        model.toJson(),
+        where: '${WorkerField.id} = ?',
+        whereArgs: [model.id],
+      );
+      print('update success');
+      return true;
+    } catch (ex) {
+      print(ex.toString());
+      return false;
+    }
+  }
 }

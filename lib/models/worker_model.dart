@@ -81,7 +81,7 @@ class WorkerModel {
         WorkerField.id: id,
         WorkerField.workerCode: workerCode,
         WorkerField.workerName: workerName,
-        WorkerField.workerStatus: workerStatus,
+        WorkerField.workerStatus: workerStatus ? 1 : 0,
         WorkerField.createDate: createDate.toIso8601String(),
         WorkerField.createBy: createBy,
         WorkerField.updateDate:
