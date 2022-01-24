@@ -37,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
     await dbHelper.create(model);
   }
 
+  Future<void> readWorkerAll() async {
+    final res = await dbHelper.readAll();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +57,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                print('Read');
+                print('Read All');
+                readWorkerAll();
               },
-              child: Text("Read"),
+              child: Text("Read All"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('Read by');
+              },
+              child: Text("Read by"),
             ),
             ElevatedButton(
               onPressed: () {
