@@ -68,4 +68,20 @@ class DatabaseHelper {
       return false;
     }
   }
+
+  Future<bool> read(int id) async {
+    Database db = await instance.database;
+    try {
+      final res = await db.query(
+        tableWorker,
+        where: '${WorkerField.id} = ?',
+        whereArgs: [id],
+      );
+      print(res.toList()[0]);
+      return true;
+    } catch (ex) {
+      print(ex.toString);
+      return false;
+    }
+  }
 }
